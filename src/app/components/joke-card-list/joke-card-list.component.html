@@ -1,0 +1,20 @@
+<h1>Chuck Norris Jokes</h1>
+
+<div *ngIf="loading">
+	<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<div *ngIf="!loading">
+	<div class="refresh-button">
+		<button mat-fab (click)="this.refresh.emit()"><mat-icon>refresh</mat-icon></button>
+	</div>
+
+	<div *ngIf="jokes">
+		<app-joke-card-item *ngFor="let joke of jokes" [joke]="joke"></app-joke-card-item>
+	</div>
+
+	<div *ngIf="!jokes">No jokes found</div>
+</div>
+
+<div *ngIf="error">
+  An error occurred: {{error.message}}
+</div>
