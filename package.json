@@ -26,7 +26,9 @@
     "@ngrx/entity": "^6.0.1",
     "@ngrx/store": "^6.0.1",
     "@ngrx/store-devtools": "^6.0.1",
+    "boom": "^7.2.0",
     "core-js": "^2.5.4",
+    "hoek": "^5.0.4",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
