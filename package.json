@@ -26,10 +26,14 @@
     "@ngrx/entity": "^6.0.1",
     "@ngrx/store": "^6.0.1",
     "@ngrx/store-devtools": "^6.0.1",
+    "adm-zip": "^0.4.11",
     "boom": "^7.2.0",
     "core-js": "^2.5.4",
+    "cryptiles": "^4.1.2",
     "hoek": "^5.0.4",
+    "parsejson": "0.0.3",
     "rxjs": "^6.0.0",
+    "url-parse": "^1.4.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
