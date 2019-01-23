@@ -13,7 +13,7 @@ export class JokeStoreEffects {
   @Effect()
   initEffect$: Observable<Action> = this.actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
-    map(action => new featureActions.LoadRequestAction())
+    map(_ => new featureActions.LoadRequestAction())
   );
 
   @Effect()
