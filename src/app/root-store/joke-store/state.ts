@@ -6,7 +6,7 @@ export const featureAdapter: EntityAdapter<
 > = createEntityAdapter<Joke>({
   selectId: model => model.id,
   sortComparer: (a: Joke, b: Joke): number =>
-    b.id.toString().localeCompare(a.id)
+    b.id.toString().localeCompare(a.id.toString())
 });
 
 export interface State extends EntityState<Joke> {

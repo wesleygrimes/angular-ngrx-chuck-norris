@@ -1,4 +1,3 @@
 <mat-card>
-  <mat-card-title>Joke #{{ joke.id }}</mat-card-title>
-  <mat-card-content>{{ joke.joke }}</mat-card-content>
+  <mat-card-title><a [routerLink]="['/jokes',joke.id]">See Joke #{{ joke.id }}</a></mat-card-title>
 </mat-card>
