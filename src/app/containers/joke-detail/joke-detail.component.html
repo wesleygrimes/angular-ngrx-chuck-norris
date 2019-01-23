@@ -1,0 +1,4 @@
+<div *ngIf="joke$ | async as joke; else loading">{{ joke.joke }}</div>
+<ng-template #loading>
+  Loading joke...
+</ng-template>

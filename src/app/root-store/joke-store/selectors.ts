@@ -1,11 +1,5 @@
-import {
-  createFeatureSelector,
-  createSelector,
-  MemoizedSelector
-} from '@ngrx/store';
-		
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { Joke } from '../../models';
-
 import { featureAdapter, State } from './state';
 
 export const getError = (state: State): any => state.error;
@@ -21,8 +15,8 @@ export const selectAllJokeItems: (
   state: object
 ) => Joke[] = featureAdapter.getSelectors(selectJokeState).selectAll;
 
-export const selectJokeById = (id: string) =>
-  createSelector(this.selectAllJokeItems, (allJokes: Joke[]) => {
+export const selectJokeById = (id: number) =>
+  createSelector(selectAllJokeItems, (allJokes: Joke[]) => {
     if (allJokes) {
       return allJokes.find(p => p.id === id);
     } else {
