@@ -2,7 +2,7 @@
 
 This project is a Chuck Norris Joke Generator backed by an NgRx Store using best practices as described in this article: [Link to article](https://itnext.io/ngrx-best-practices-for-enterprise-angular-applications-6f00bcdf36d7)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
 
 ## Development server
 
