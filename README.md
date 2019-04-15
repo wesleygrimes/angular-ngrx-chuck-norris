@@ -1,3 +1,5 @@
+<a href="https://ultimatecourses.com/topic/angular/ref/wes.grimes/" title="Ultimate Courses"><img src="https://ultimatecourses.com/assets/img/banners/ultimate-angular-github.svg" alt="Ultimate Courses" /></a>
+
 # Angular NgRx Chuck Norris Joke Generator
 
 This project is a Chuck Norris Joke Generator backed by an NgRx Store using best practices as described in this article: [Link to article](https://itnext.io/ngrx-best-practices-for-enterprise-angular-applications-6f00bcdf36d7)
