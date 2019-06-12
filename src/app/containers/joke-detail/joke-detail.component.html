@@ -1,4 +1,13 @@
-<div *ngIf="joke$ | async as joke; else loading">{{ joke.joke }}</div>
+<div><a routerLink="/jokes"><< Back to List</a></div>
+<br />
+<div *ngIf="joke$ | async as joke; else loading">
+  <mat-card>
+    <mat-card-title>Joke #{{ joke.id }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ joke.joke }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
 <ng-template #loading>
   Loading joke...
 </ng-template>

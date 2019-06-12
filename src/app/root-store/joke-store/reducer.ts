@@ -3,7 +3,7 @@ import { featureAdapter, initialState, State } from './state';
 
 export function featureReducer(state = initialState, action: Actions): State {
   switch (action.type) {
-    case ActionTypes.LOAD_REQUEST: {
+    case ActionTypes.LOAD: {
       return {
         ...state,
         isLoading: true,
@@ -11,7 +11,7 @@ export function featureReducer(state = initialState, action: Actions): State {
       };
     }
     case ActionTypes.LOAD_SUCCESS: {
-      return featureAdapter.addAll(action.payload.items, {
+      return featureAdapter.addAll(action.payload.jokes, {
         ...state,
         isLoading: false,
         error: null
@@ -22,6 +22,12 @@ export function featureReducer(state = initialState, action: Actions): State {
         ...state,
         isLoading: false,
         error: action.payload.error
+      };
+    }
+    case ActionTypes.SELECT: {
+      return {
+        ...state,
+        selectedJokeId: action.payload.id
       };
     }
     default: {

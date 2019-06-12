@@ -1,10 +1,14 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatIconModule, MatProgressBarModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatProgressBarModule
+} from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { JokeCardItemComponent } from './components/joke-card-item/joke-card-item.component';
@@ -20,7 +24,6 @@ import { RootStoreModule } from './root-store';
     HttpClientModule,
     RouterModule.forRoot(routes),
     RootStoreModule,
-    AppRoutingModule,
     MatCardModule,
     MatProgressBarModule,
     MatButtonModule,
@@ -35,4 +38,4 @@ import { RootStoreModule } from './root-store';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

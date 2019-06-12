@@ -2,13 +2,15 @@ import { Action } from '@ngrx/store';
 import { Joke } from '../../models';
 
 export enum ActionTypes {
-  LOAD_REQUEST = '[Joke] Load Request',
-  LOAD_FAILURE = '[Joke] Load Failure',
-  LOAD_SUCCESS = '[Joke] Load Success'
+  LOAD = '[Jokes Page] Load',
+  LOAD_FAILURE = '[Jokes API] Load Failure',
+  LOAD_SUCCESS = '[Jokes API] Load Success',
+  REFRESH = '[Jokes Page] Refresh',
+  SELECT = '[Jokes Page] Select'
 }
 
-export class LoadRequestAction implements Action {
-  readonly type = ActionTypes.LOAD_REQUEST;
+export class LoadAction implements Action {
+  readonly type = ActionTypes.LOAD;
 }
 
 export class LoadFailureAction implements Action {
@@ -18,7 +20,21 @@ export class LoadFailureAction implements Action {
 
 export class LoadSuccessAction implements Action {
   readonly type = ActionTypes.LOAD_SUCCESS;
-  constructor(public payload: { items: Joke[] }) {}
+  constructor(public payload: { jokes: Joke[] }) {}
 }
 
-export type Actions = LoadRequestAction | LoadFailureAction | LoadSuccessAction;
+export class RefreshAction implements Action {
+  readonly type = ActionTypes.REFRESH;
+}
+
+export class SelectAction implements Action {
+  readonly type = ActionTypes.SELECT;
+  constructor(public payload: { id: number }) {}
+}
+
+export type Actions =
+  | LoadAction
+  | LoadFailureAction
+  | LoadSuccessAction
+  | RefreshAction
+  | SelectAction;

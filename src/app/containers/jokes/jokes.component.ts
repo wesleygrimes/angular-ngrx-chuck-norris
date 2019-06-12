@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Joke } from '../../models';
-import { JokeStoreActions, JokeStoreSelectors, RootStoreState } from '../../root-store';
+import {
+  JokeStoreActions,
+  JokeStoreSelectors,
+  RootStoreState
+} from '../../root-store';
 
 @Component({
   selector: 'app-jokes',
@@ -14,25 +18,25 @@ export class JokesComponent implements OnInit {
   error$: Observable<any>;
   isLoading$: Observable<boolean>;
 
-  constructor(private store$: Store<RootStoreState.State>) { }
+  constructor(private store: Store<RootStoreState.State>) {}
 
   ngOnInit() {
-    this.jokes$ = this.store$.pipe(
+    this.jokes$ = this.store.pipe(
       select(JokeStoreSelectors.selectAllJokeItems)
     );
 
-    this.error$ = this.store$.pipe(
-      select(JokeStoreSelectors.selectJokeError)
-    );
+    this.error$ = this.store.pipe(select(JokeStoreSelectors.selectJokeError));
 
-    this.isLoading$ = this.store$.pipe(
+    this.isLoading$ = this.store.pipe(
       select(JokeStoreSelectors.selectJokeIsLoading)
     );
   }
 
   onRefresh() {
-    this.store$.dispatch(
-      new JokeStoreActions.LoadRequestAction()
-    );
+    this.store.dispatch(new JokeStoreActions.RefreshAction());
+  }
+
+  onSelect(id: number) {
+    this.store.dispatch(new JokeStoreActions.SelectAction({ id }));
   }
 }

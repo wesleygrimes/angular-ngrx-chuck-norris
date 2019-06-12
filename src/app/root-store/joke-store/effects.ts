@@ -1,41 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
+import { Router } from '@angular/router';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, concatMap, map, tap } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 import * as featureActions from './actions';
 
 @Injectable()
 export class JokeStoreEffects {
-  constructor(private dataService: DataService, private actions$: Actions) { }
-
-  @Effect()
-  initEffect$: Observable<Action> = this.actions$.pipe(
-    ofType(ROOT_EFFECTS_INIT),
-    map(_ => new featureActions.LoadRequestAction())
-  );
+  constructor(
+    private dataService: DataService,
+    private actions$: Actions,
+    private router: Router
+  ) {}
 
   @Effect()
   loadRequestEffect$: Observable<Action> = this.actions$.pipe(
-    ofType<featureActions.LoadRequestAction>(
-      featureActions.ActionTypes.LOAD_REQUEST
-    ),
-    startWith(new featureActions.LoadRequestAction()),
-    switchMap(action =>
-      this.dataService
-        .getJokes()
-        .pipe(
-          map(
-            items =>
-              new featureActions.LoadSuccessAction({
-                items
-              })
-          ),
-          catchError(error =>
-            observableOf(new featureActions.LoadFailureAction({ error }))
-          )
-        )
+    ofType<featureActions.LoadAction>(featureActions.ActionTypes.LOAD),
+    concatMap(_ =>
+      this.dataService.getJokes().pipe(
+        map(
+          jokes =>
+            new featureActions.LoadSuccessAction({
+              jokes
+            })
+        ),
+        catchError(error => of(new featureActions.LoadFailureAction({ error })))
+      )
     )
+  );
+
+  @Effect()
+  refreshEffect$: Observable<Action> = this.actions$.pipe(
+    ofType(featureActions.ActionTypes.REFRESH),
+    map(_ => new featureActions.LoadAction())
+  );
+
+  @Effect({ dispatch: false })
+  navigateToDetailOnSelectEffect$: Observable<Action> = this.actions$.pipe(
+    ofType(featureActions.ActionTypes.SELECT),
+    tap(_ => this.router.navigate(['/jokes', 'detail']))
   );
 }

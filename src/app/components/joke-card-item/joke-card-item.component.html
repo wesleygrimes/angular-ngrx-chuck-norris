@@ -1,3 +1,7 @@
 <mat-card>
-  <mat-card-title><a [routerLink]="['/jokes',joke.id]">See Joke #{{ joke.id }}</a></mat-card-title>
+  <mat-card-title
+    ><a (click)="select.emit(joke.id)"
+      >See Joke #{{ joke.id }}</a
+    ></mat-card-title
+  >
 </mat-card>

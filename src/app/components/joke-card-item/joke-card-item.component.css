@@ -2,3 +2,11 @@
   padding: 15px;
   margin: 15px;
 }
+
+a {
+  cursor: pointer;
+}
+
+mat-card {
+  width: 250px;
+}
