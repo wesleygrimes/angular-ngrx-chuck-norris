@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { Joke } from '../../models';
 
 export enum ActionTypes {
-  LOAD = '[Jokes Page] Load',
+  LOAD = '[App Component] Load',
   LOAD_FAILURE = '[Jokes API] Load Failure',
   LOAD_SUCCESS = '[Jokes API] Load Success',
   REFRESH = '[Jokes Page] Refresh',
@@ -32,7 +32,7 @@ export class SelectAction implements Action {
   constructor(public payload: { id: number }) {}
 }
 
-export type Actions =
+export type ActionsUnion =
   | LoadAction
   | LoadFailureAction
   | LoadSuccessAction

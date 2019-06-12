@@ -38,7 +38,7 @@ export class JokeStoreEffects {
   );
 
   @Effect({ dispatch: false })
-  navigateToDetailOnSelectEffect$: Observable<Action> = this.actions$.pipe(
+  navigateToDetailOnSelectEffect$ = this.actions$.pipe(
     ofType(featureActions.ActionTypes.SELECT),
     tap(_ => this.router.navigate(['/jokes', 'detail']))
   );
