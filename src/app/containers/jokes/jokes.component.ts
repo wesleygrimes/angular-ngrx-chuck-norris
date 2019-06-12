@@ -33,10 +33,10 @@ export class JokesComponent implements OnInit {
   }
 
   onRefresh() {
-    this.store.dispatch(new JokeStoreActions.RefreshAction());
+    this.store.dispatch(JokeStoreActions.refresh());
   }
 
   onSelect(id: number) {
-    this.store.dispatch(new JokeStoreActions.SelectAction({ id }));
+    this.store.dispatch(JokeStoreActions.select({ id }));
   }
 }

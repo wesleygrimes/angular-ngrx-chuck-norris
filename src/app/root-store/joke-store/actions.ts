@@ -1,40 +1,21 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Joke } from '../../models';
 
-export enum ActionTypes {
-  LOAD = '[App Component] Load',
-  LOAD_FAILURE = '[Jokes API] Load Failure',
-  LOAD_SUCCESS = '[Jokes API] Load Success',
-  REFRESH = '[Jokes Page] Refresh',
-  SELECT = '[Jokes Page] Select'
-}
+export const load = createAction('[App Component] Load');
 
-export class LoadAction implements Action {
-  readonly type = ActionTypes.LOAD;
-}
+export const loadFailure = createAction(
+  '[Jokes API] Load Failure',
+  props<{ error: string }>()
+);
 
-export class LoadFailureAction implements Action {
-  readonly type = ActionTypes.LOAD_FAILURE;
-  constructor(public payload: { error: string }) {}
-}
+export const loadSuccess = createAction(
+  '[Jokes API] Load Success',
+  props<{ jokes: Joke[] }>()
+);
 
-export class LoadSuccessAction implements Action {
-  readonly type = ActionTypes.LOAD_SUCCESS;
-  constructor(public payload: { jokes: Joke[] }) {}
-}
+export const refresh = createAction('[Jokes Page] Refresh');
 
-export class RefreshAction implements Action {
-  readonly type = ActionTypes.REFRESH;
-}
-
-export class SelectAction implements Action {
-  readonly type = ActionTypes.SELECT;
-  constructor(public payload: { id: number }) {}
-}
-
-export type ActionsUnion =
-  | LoadAction
-  | LoadFailureAction
-  | LoadSuccessAction
-  | RefreshAction
-  | SelectAction;
+export const select = createAction(
+  '[Jokes Page] Select',
+  props<{ id: number }>()
+);

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
 import { catchError, concatMap, map, tap } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 import * as featureActions from './actions';
@@ -15,31 +14,35 @@ export class JokeStoreEffects {
     private router: Router
   ) {}
 
-  @Effect()
-  loadRequestEffect$: Observable<Action> = this.actions$.pipe(
-    ofType<featureActions.LoadAction>(featureActions.ActionTypes.LOAD),
-    concatMap(_ =>
-      this.dataService.getJokes().pipe(
-        map(
-          jokes =>
-            new featureActions.LoadSuccessAction({
+  loadRequestEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(featureActions.load),
+      concatMap(_ =>
+        this.dataService.getJokes().pipe(
+          map(jokes =>
+            featureActions.loadSuccess({
               jokes
             })
-        ),
-        catchError(error => of(new featureActions.LoadFailureAction({ error })))
+          ),
+          catchError(error => of(featureActions.loadFailure({ error })))
+        )
       )
     )
   );
 
-  @Effect()
-  refreshEffect$: Observable<Action> = this.actions$.pipe(
-    ofType(featureActions.ActionTypes.REFRESH),
-    map(_ => new featureActions.LoadAction())
+  refreshEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(featureActions.refresh),
+      map(_ => featureActions.load())
+    )
   );
 
-  @Effect({ dispatch: false })
-  navigateToDetailOnSelectEffect$ = this.actions$.pipe(
-    ofType(featureActions.ActionTypes.SELECT),
-    tap(_ => this.router.navigate(['/jokes', 'detail']))
+  navigateToDetailOnSelectEffect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(featureActions.select),
+        tap(_ => this.router.navigate(['/jokes', 'detail']))
+      ),
+    { dispatch: false }
   );
 }

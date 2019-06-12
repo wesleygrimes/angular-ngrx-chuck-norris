@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<RootStoreState.State>) {}
 
   ngOnInit() {
-    this.store.dispatch(new JokeStoreActions.LoadAction());
+    this.store.dispatch(JokeStoreActions.load());
   }
 }
