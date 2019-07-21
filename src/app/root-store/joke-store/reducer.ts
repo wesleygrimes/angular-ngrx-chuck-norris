@@ -1,29 +1,40 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as featureActions from './actions';
-import { featureAdapter, initialState, State } from './state';
+import { initialState, State } from './state';
 
 const featureReducer = createReducer(
   initialState,
-  on(featureActions.load, state => ({
+  on(featureActions.loadAll, state => ({
     ...state,
     isLoading: true,
     error: null
   })),
-  on(featureActions.loadSuccess, (state, { jokes }) =>
-    featureAdapter.addAll(jokes, {
-      ...state,
-      isLoading: false,
-      error: null
-    })
-  ),
-  on(featureActions.loadFailure, (state, { error }) => ({
+  on(featureActions.loadAllSuccess, (state, { jokes }) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+    jokes
+  })),
+  on(featureActions.loadAllFailure, (state, { error }) => ({
     ...state,
     isLoading: false,
     error
   })),
-  on(featureActions.select, (state, { id }) => ({
+  on(featureActions.loadCategory, state => ({
     ...state,
-    selectedJokeId: id
+    isLoading: true,
+    error: null
+  })),
+  on(featureActions.loadCategorySuccess, (state, { jokes }) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+    jokes
+  })),
+  on(featureActions.loadCategoryFailure, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error
   }))
 );
 

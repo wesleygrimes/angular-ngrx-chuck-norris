@@ -1,47 +1,43 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, tap } from 'rxjs/operators';
-import { DataService } from '../../services/data.service';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { JokeService } from '../../services/';
 import * as featureActions from './actions';
 
 @Injectable()
 export class JokeStoreEffects {
-  constructor(
-    private dataService: DataService,
-    private actions$: Actions,
-    private router: Router
-  ) {}
+  constructor(private jokeService: JokeService, private actions$: Actions) {}
 
-  loadRequestEffect$ = createEffect(() =>
+  loadAll$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(featureActions.load),
-      concatMap(_ =>
-        this.dataService.getJokes().pipe(
-          map(jokes =>
-            featureActions.loadSuccess({
-              jokes
-            })
-          ),
-          catchError(error => of(featureActions.loadFailure({ error })))
+      ofType(featureActions.loadAll),
+      mergeMap(() =>
+        this.jokeService.getJokes().pipe(
+          map(jokes => featureActions.loadAllSuccess({ jokes })),
+          catchError(error => of(featureActions.loadAllFailure({ error })))
         )
       )
     )
   );
 
-  refreshEffect$ = createEffect(() =>
+  loadCategory$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(featureActions.refresh),
-      map(_ => featureActions.load())
+      ofType(featureActions.loadCategory),
+      mergeMap(({ category }) =>
+        this.jokeService.getJokesByCategory(category).pipe(
+          map(jokes => featureActions.loadCategorySuccess({ jokes })),
+          catchError(error => of(featureActions.loadCategoryFailure({ error })))
+        )
+      )
     )
   );
 
-  navigateToDetailOnSelectEffect$ = createEffect(
+  showAlertOnFailure$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(featureActions.select),
-        tap(_ => this.router.navigate(['/jokes', 'detail']))
+        ofType(featureActions.loadAllFailure),
+        map(({ error }) => window.alert(error.message))
       ),
     { dispatch: false }
   );

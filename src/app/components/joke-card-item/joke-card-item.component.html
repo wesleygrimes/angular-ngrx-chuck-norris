@@ -1,7 +1,6 @@
 <mat-card>
-  <mat-card-title
-    ><a (click)="select.emit(joke.id)"
-      >See Joke #{{ joke.id }}</a
-    ></mat-card-title
-  >
+  <mat-card-title>Joke #{{ joke.id }}</mat-card-title>
+  <mat-card-content>
+    <p>{{ joke.joke }}</p>
+  </mat-card-content>
 </mat-card>

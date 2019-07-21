@@ -1,20 +1,13 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Joke } from '../../models';
+import { Joke } from 'src/app/models';
 
-export const featureAdapter: EntityAdapter<Joke> = createEntityAdapter<Joke>({
-  selectId: model => model.id,
-  sortComparer: (a: Joke, b: Joke): number =>
-    b.id.toString().localeCompare(a.id.toString())
-});
-
-export interface State extends EntityState<Joke> {
+export interface State {
+  jokes: Joke[];
   isLoading?: boolean;
   error?: any;
-  selectedJokeId: number;
 }
 
-export const initialState: State = featureAdapter.getInitialState({
+export const initialState: State = {
+  jokes: null,
   isLoading: false,
-  error: null,
-  selectedJokeId: null
-});
+  error: null
+};

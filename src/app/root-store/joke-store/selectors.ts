@@ -1,36 +1,20 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Joke } from '../../models';
-import { featureAdapter, State } from './state';
+import { createSelector } from '@ngrx/store';
+import { State as RootState } from '../state';
+import { State as JokesState } from './state';
 
-export const selectJokeState = createFeatureSelector<State>('joke');
+export const selectFeature = (state: RootState) => state.joke;
 
-export const selectAllJokeItems: (
-  state: object
-) => Joke[] = featureAdapter.getSelectors(selectJokeState).selectAll;
-
-const selectSelectedJokeId = createSelector(
-  selectJokeState,
-  (state: State): number => state.selectedJokeId
+export const selectJokes = createSelector(
+  selectFeature,
+  (state: JokesState) => state.jokes
 );
 
-export const selectCurrentJoke = createSelector(
-  selectAllJokeItems,
-  selectSelectedJokeId,
-  (allJokes: Joke[], selectedJokeId: number) => {
-    if (allJokes && selectedJokeId) {
-      return allJokes.find(p => p.id === selectedJokeId);
-    } else {
-      return null;
-    }
-  }
+export const selectJokesIsLoading = createSelector(
+  selectFeature,
+  (state: JokesState) => state.isLoading || false
 );
 
-export const selectJokeError = createSelector(
-  selectJokeState,
-  (state: State): any => state.error
-);
-
-export const selectJokeIsLoading = createSelector(
-  selectJokeState,
-  (state: State): boolean => state.isLoading
+export const selectJokesError = createSelector(
+  selectFeature,
+  (state: JokesState) => state.error || null
 );

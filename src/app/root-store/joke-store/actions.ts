@@ -1,21 +1,31 @@
 import { createAction, props } from '@ngrx/store';
-import { Joke } from '../../models';
+import { Joke } from 'src/app/models';
 
-export const load = createAction('[App Component] Load');
+export const createJokeSuccessAction = (actionType: string) =>
+  createAction(actionType, props<{ jokes: Joke[] }>());
 
-export const loadFailure = createAction(
-  '[Jokes API] Load Failure',
-  props<{ error: string }>()
+export const createJokeFailureAction = (actionType: string) =>
+  createAction(actionType, props<{ error: any }>());
+
+export const loadAll = createAction('[Jokes Page] Load All');
+
+export const loadAllSuccess = createJokeSuccessAction(
+  '[Jokes API] Load All Success'
 );
 
-export const loadSuccess = createAction(
-  '[Jokes API] Load Success',
-  props<{ jokes: Joke[] }>()
+export const loadAllFailure = createJokeFailureAction(
+  '[Jokes API] Load All Failure'
 );
 
-export const refresh = createAction('[Jokes Page] Refresh');
+export const loadCategory = createAction(
+  '[Jokes Page] Load Category',
+  props<{ category: string }>()
+);
 
-export const select = createAction(
-  '[Jokes Page] Select',
-  props<{ id: number }>()
+export const loadCategorySuccess = createJokeSuccessAction(
+  '[Jokes API] Load Category Success'
+);
+
+export const loadCategoryFailure = createJokeFailureAction(
+  '[Jokes API] Load Category Failure'
 );

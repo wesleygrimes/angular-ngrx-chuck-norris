@@ -1,3 +1,9 @@
 <h1>Chuck Norris Jokes</h1>
 
-<router-outlet></router-outlet>
+<app-joke-card-list
+  [jokes]="jokes$ | async"
+  [loading]="isLoading$ | async"
+  [error]="error$ | async"
+  (loadAll)="onLoadAll()"
+  (loadCategory)="onLoadCategory($event)"
+></app-joke-card-list>
