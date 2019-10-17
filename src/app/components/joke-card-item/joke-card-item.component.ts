@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Joke } from '../../models';
 
 @Component({
@@ -8,10 +8,8 @@ import { Joke } from '../../models';
 })
 export class JokeCardItemComponent implements OnInit {
   @Input() joke: Joke;
-  @Output() select = new EventEmitter<number>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

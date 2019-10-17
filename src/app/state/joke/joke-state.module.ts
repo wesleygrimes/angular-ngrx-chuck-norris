@@ -2,15 +2,15 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { JokeStoreEffects } from './effects';
-import { reducer } from './reducer';
+import { JokeStoreEffects } from './joke.effects';
+import * as fromJoke from './joke.reducer';
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature('joke', reducer),
+    StoreModule.forFeature(fromJoke.jokeFeatureKey, fromJoke.reducer),
     EffectsModule.forFeature([JokeStoreEffects])
   ],
-  providers: [JokeStoreEffects]
+  declarations: []
 })
-export class JokeStoreModule {}
+export class JokeStateModule {}

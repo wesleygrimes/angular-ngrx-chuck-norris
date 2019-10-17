@@ -11,8 +11,8 @@ export class JokeCardListComponent implements OnInit {
   @Input() loading: boolean;
   @Input() error: any;
 
-  @Output() refresh = new EventEmitter();
-  @Output() select = new EventEmitter<number>();
+  @Output() loadAllRequested = new EventEmitter();
+  @Output() loadCategoryRequested = new EventEmitter<string>();
 
   constructor() {}
 

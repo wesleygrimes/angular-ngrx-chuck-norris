@@ -6,13 +6,20 @@ import { Joke, JokeResult } from '../models';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class JokeService {
   private API_BASE_URL = 'https://api.icndb.com';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
   getJokes(): Observable<Joke[]> {
     return this.http
+      .get<JokeResult>(`${this.API_BASE_URL}/jokes/random/5?escape=javascript`)
+      .pipe(map(result => result.value));
+  }
+
+  getJokesByCategory(category: string): Observable<Joke[]> {
+    return this.http
       .get<JokeResult>(
-      `${this.API_BASE_URL}/jokes/random/5?escape=javascript&limitTo=[nerdy]`
+        `${this.API_BASE_URL}/jokes/random/5?escape=javascript&limitTo=[${category}]`
       )
       .pipe(map(result => result.value));
   }

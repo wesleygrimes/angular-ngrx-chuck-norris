@@ -1,3 +1,14 @@
-.refresh-button {
-  margin-bottom: 20px;
+.buttons {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.jokes-list {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 20px;
+}
+
+.error {
+  color: red;
 }

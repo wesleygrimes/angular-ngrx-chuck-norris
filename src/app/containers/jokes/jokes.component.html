@@ -1,7 +1,0 @@
-<app-joke-card-list
-  [jokes]="jokes$ | async"
-  [loading]="isLoading$ | async"
-  [error]="error$ | async"
-  (refresh)="onRefresh()"
-  (select)="onSelect($event)"
-></app-joke-card-list>

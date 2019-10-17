@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { JokeStoreActions, RootStoreState } from './root-store';
+import { JokeUIActions, selectAppComponentViewModel } from './state/joke';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,19 @@ import { JokeStoreActions, RootStoreState } from './root-store';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store<RootStoreState.State>) {}
+  appComponentViewModel$ = this.store.select(selectAppComponentViewModel);
+
+  constructor(private store: Store<{}>) {}
 
   ngOnInit() {
-    this.store.dispatch(JokeStoreActions.load());
+    this.store.dispatch(JokeUIActions.appComponentInitialized());
+  }
+
+  onLoadAllRequested() {
+    this.store.dispatch(JokeUIActions.loadAllRequested());
+  }
+
+  onLoadCategoryRequested(category: string) {
+    this.store.dispatch(JokeUIActions.loadCategoryRequested({ category }));
   }
 }
