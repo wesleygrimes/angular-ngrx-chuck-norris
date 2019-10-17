@@ -7,7 +7,7 @@ import { Joke, JokeResult } from '../models';
   providedIn: 'root'
 })
 export class JokeService {
-  private API_BASE_URL = ';;https://api.icndb.com';
+  private API_BASE_URL = 'https://api.icndb.com';
   constructor(private http: HttpClient) {}
 
   getJokes(): Observable<Joke[]> {
