@@ -1,9 +1,10 @@
 <h1>Chuck Norris Jokes</h1>
 
 <app-joke-card-list
-  [jokes]="jokes$ | async"
-  [loading]="isLoading$ | async"
-  [error]="error$ | async"
-  (loadAll)="onLoadAll()"
-  (loadCategory)="onLoadCategory($event)"
+  *ngIf="appComponentViewModel$ | async as vm"
+  [jokes]="vm.jokes"
+  [loading]="vm.loading"
+  [error]="vm.error"
+  (loadAllRequested)="onLoadAllRequested()"
+  (loadCategoryRequested)="onLoadCategoryRequested($event)"
 ></app-joke-card-list>

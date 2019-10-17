@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Joke } from './models';
-import {
-  JokeStoreActions,
-  JokeStoreSelectors,
-  RootStoreState
-} from './root-store';
+import { Store } from '@ngrx/store';
+import { JokeUIActions, selectAppComponentViewModel } from './state/joke';
 
 @Component({
   selector: 'app-root',
@@ -14,25 +8,19 @@ import {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  jokes$: Observable<Joke[]>;
-  error$: Observable<any>;
-  isLoading$: Observable<boolean>;
+  appComponentViewModel$ = this.store.select(selectAppComponentViewModel);
 
-  constructor(private store: Store<RootStoreState.State>) {}
+  constructor(private store: Store<{}>) {}
 
   ngOnInit() {
-    this.jokes$ = this.store.pipe(select(JokeStoreSelectors.selectJokes));
-    this.isLoading$ = this.store.pipe(
-      select(JokeStoreSelectors.selectJokesIsLoading)
-    );
-    this.error$ = this.store.pipe(select(JokeStoreSelectors.selectJokesError));
+    this.store.dispatch(JokeUIActions.appComponentInitialized());
   }
 
-  onLoadAll() {
-    this.store.dispatch(JokeStoreActions.loadAll());
+  onLoadAllRequested() {
+    this.store.dispatch(JokeUIActions.loadAllRequested());
   }
 
-  onLoadCategory(category: string) {
-    this.store.dispatch(JokeStoreActions.loadCategory({ category }));
+  onLoadCategoryRequested(category: string) {
+    this.store.dispatch(JokeUIActions.loadCategoryRequested({ category }));
   }
 }

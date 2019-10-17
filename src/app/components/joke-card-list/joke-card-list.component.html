@@ -1,11 +1,11 @@
 <div class="buttons">
   <button
     mat-raised-button
-    (click)="this.loadAll.emit()"
+    (click)="loadAllRequested.emit()"
     style="margin-right:10px;"
   >
     Load All</button
-  ><button mat-raised-button (click)="this.loadCategory.emit('nerdy')">
+  ><button mat-raised-button (click)="loadCategoryRequested.emit('nerdy')">
     Load Nerdy
   </button>
 </div>
@@ -22,5 +22,5 @@
 
   <div *ngIf="!jokes">No jokes found</div>
 </div>
-
-<div *ngIf="error">An error occurred: {{ error.message }}</div>
+<br />
+<div class="error" *ngIf="error">ERROR: {{ error }}</div>

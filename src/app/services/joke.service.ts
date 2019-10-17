@@ -19,9 +19,7 @@ export class JokeService {
   getJokesByCategory(category: string): Observable<Joke[]> {
     return this.http
       .get<JokeResult>(
-        `${
-          this.API_BASE_URL
-        }/jokes/random/5?escape=javascript&limitTo=[${category}]`
+        `${this.API_BASE_URL}/jokes/random/5?escape=javascript&limitTo=[${category}]`
       )
       .pipe(map(result => result.value));
   }
